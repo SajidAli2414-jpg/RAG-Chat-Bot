@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>RAG Chatbot Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Invent Bot</title>
 </head>
 <body>
-    <h1 style="text-align: center; margin-top: 50px;">Mera Chatbot jald hi yahan live hoga!</h1>
+
+    <h1>Welcome to My Website</h1>
+    <p>The bot is loading...</p>
+
+    <!-- Invent Chat Widget Script -->
+    <script>
+      (function(d, t) {
+          var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          g.src = "https://cdn.invent.ai/widget/index.js"; // Invent ka CDN link
+          g.onload = function() {
+              window.InventWidget.init({
+                  assistantId: 'ast_0ytCPYWRjnJhQ28KtRjKHG' // Aapki exact ID yahan daal di hai
+              });
+          };
+          s.parentNode.insertBefore(g, s);
+      }(document, 'script'));
+    </script>
+
 </body>
 </html>
