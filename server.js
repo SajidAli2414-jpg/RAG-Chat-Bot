@@ -3,20 +3,30 @@ import crypto from 'crypto';
 import cors from 'cors';
 
 const app = express();
-app.use(cors()); 
+app.use(cors()); // Taake aapka frontend is backend se baat kar sake
+app.use(express.json());
 
-// Jo key abhi aapne dashboard se copy ki hai, use yahan 'your-secret-key' ki jagah paste karein
+// Apni asli Invent Secret Key yahan dalein
 const secretKey = 'sk_3Za4EjThLmtW8Oazp1Q5wj'; 
 
+// API Endpoint jo frontend ko hash bana kar dega
 app.get('/get-bot-hash', (req, res) => {
-    const userId = req.query.userId || 'user_123';
-    
+    const userId = req.query.userId || 'user_123'; // Frontend se userId aayegi
+
+    // HMAC-SHA256 hash generation
     const userHash = crypto
         .createHmac('sha256', secretKey)
         .update(userId)
         .digest('hex');
 
-    res.json({ userId, userHash });
+    // Frontend ko data return karein
+    res.json({
+        userId: userId,
+        userHash: userHash
+    });
 });
 
-app.listen(3000, () => console.log('Backend running on http://localhost:3000'));
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Backend server running on http://localhost:${PORT}`);
+});
