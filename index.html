@@ -3,39 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Secure Invent Bot</title>
+    <title>My Invent Bot</title>
 </head>
 <body>
 
     <h1>Welcome to My Website</h1>
-    <p>The secure bot is loading...</p>
+    <p>The bot is loading...</p>
 
     <script>
-        const userId = 'user_123'; // Isko abhi yahi rehne dein
-        
-        // Backend (server.js) se secure hash mangwana
-        fetch(`http://localhost:3000/get-bot-hash?userId=${userId}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log("Hash received successfully!");
-                
-                // Invent Widget Initialize karna
-                (function(d, t) {
-                    var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                    g.src = "https://cdn.invent.ai/widget/index.js"; 
-                    g.onload = function() {
-                        window.InventWidget.init({
-                            assistantId: 'ast_0ytCPYWRjnJhQ28KtRjKHG', // Aapki exact ID
-                            userId: data.userId,
-                            userHash: data.userHash // Backend se aaya hua secure hash
-                        });
-                    };
-                    s.parentNode.insertBefore(g, s);
-                }(document, 'script'));
-            })
-            .catch(err => {
-                console.error("Bot load nahi ho saka. Kya server.js chal raha hai?", err);
-            });
+      (function(d, t) {
+          var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          g.src = "https://cdn.invent.ai/widget/index.js"; 
+          g.onload = function() {
+              window.InventWidget.init({
+                  assistantId: 'ast_0ytCPYWRjnJhQ28KtRjKHG' // Sirf ID rakhi hai, baki sab hata diya!
+              });
+          };
+          s.parentNode.insertBefore(g, s);
+      }(document, 'script'));
     </script>
 
 </body>
