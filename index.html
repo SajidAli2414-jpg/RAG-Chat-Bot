@@ -3,24 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Invent Bot</title>
+    <title>My RAG Chat Bot</title>
+    <!-- CryptoJS Library: Yeh browser ke andar hi backend jaisa secure SHA256 hash banayegi -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
 
     <h1>Welcome to My Website</h1>
-    <p>The bot is loading...</p>
+    <p>The bot is initializing securely...</p>
 
     <script>
-      (function(d, t) {
-          var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-          g.src = "https://cdn.invent.ai/widget/index.js"; 
-          g.onload = function() {
-              window.InventWidget.init({
-                  assistantId: 'ast_0ytCPYWRjnJhQ28KtRjKHG' // Sirf ID rakhi hai, baki sab hata diya!
-              });
-          };
-          s.parentNode.insertBefore(g, s);
-      }(document, 'script'));
+        // 1. Aapka Backend Configuration (Ab direct HTML ke andar)
+        const userId = 'user_123'; 
+        const secretKey = 'sk_3Za4EjThLmtW8Oazp1Q5wj'; // <--- Apni asli Generated Secret Key yahan paste karein
+
+        // 2. HMAC-SHA256 Hash Generation (Jo pehle server.js kar raha tha)
+        function generateUserHash(uid, secret) {
+            return CryptoJS.HmacSHA256(uid, secret).toString(CryptoJS.enc.Hex);
+        }
+
+        const userHash = generateUserHash(userId, secretKey);
+        console.log('Generated Hash:', userHash);
+
+        // 3. Invent Widget Initialization
+        (function(d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = "https://cdn.invent.ai/widget/index.js"; 
+            g.onload = function() {
+                if (window.InventWidget) {
+                    window.InventWidget.init({
+                        assistantId: 'ast_0ytCPYWRjnJhQ28KtRjKHG', // Aapki Assistant ID
+                        userId: userId,
+                        userHash: userHash
+                    });
+                }
+            };
+            s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
     </script>
 
 </body>
